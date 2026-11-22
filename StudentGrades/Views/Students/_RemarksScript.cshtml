@@ -1,0 +1,15 @@
+<script>
+    // Live preview only. The saved value always comes from the database.
+    (function () {
+        const grade = document.getElementById('gradeInput');
+        const remarks = document.getElementById('remarksPreview');
+        function update() {
+            const value = parseFloat(grade.value);
+            remarks.value = isNaN(value) ? '' : (value >= 75 ? 'PASS' : 'FAIL');
+            remarks.classList.toggle('text-success', remarks.value === 'PASS');
+            remarks.classList.toggle('text-danger', remarks.value === 'FAIL');
+        }
+        grade.addEventListener('input', update);
+        update();
+    })();
+</script>

@@ -1,0 +1,7 @@
+@model StudentGrades.Models.Subject
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div class="mb-3">
+    <label asp-for="SubjectName" class="form-label"></label>
+    <input asp-for="SubjectName" class="form-control" autofocus />
+    <span asp-validation-for="SubjectName" class="text-danger"></span>
+</div>

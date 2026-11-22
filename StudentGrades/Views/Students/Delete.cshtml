@@ -1,0 +1,19 @@
+@model StudentGrades.Models.Student
+@{ ViewData["Title"] = "Delete Student Grade"; }
+
+<h2>Delete Student Grade</h2>
+<p class="text-danger">Are you sure you want to delete this record?</p>
+
+<dl class="row">
+    <dt class="col-sm-3">Student Key</dt><dd class="col-sm-9">@Model.StudentKey</dd>
+    <dt class="col-sm-3">Student Name</dt><dd class="col-sm-9">@Model.StudentName</dd>
+    <dt class="col-sm-3">Subject</dt><dd class="col-sm-9">@Model.Subject?.SubjectName</dd>
+    <dt class="col-sm-3">Grade</dt><dd class="col-sm-9">@Model.Grade?.ToString("0.##")</dd>
+    <dt class="col-sm-3">Remarks</dt><dd class="col-sm-9"><partial name="_RemarksBadge" model="Model.Remarks" /></dd>
+</dl>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="StudentKey" />
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

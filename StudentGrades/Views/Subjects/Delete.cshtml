@@ -1,0 +1,29 @@
+@model StudentGrades.Models.Subject
+@{
+    ViewData["Title"] = "Delete Subject";
+    var studentCount = (int)(ViewBag.StudentCount ?? 0);
+}
+
+<h2>Delete Subject</h2>
+
+<dl class="row">
+    <dt class="col-sm-3">Subject Key</dt><dd class="col-sm-9">@Model.SubjectKey</dd>
+    <dt class="col-sm-3">Subject Name</dt><dd class="col-sm-9">@Model.SubjectName</dd>
+</dl>
+
+@if (studentCount > 0)
+{
+    <div class="alert alert-warning">
+        This subject has @studentCount student record(s) and can't be deleted. Delete or move those records first.
+    </div>
+    <a asp-action="Index" class="btn btn-secondary">Back</a>
+}
+else
+{
+    <p class="text-danger">Are you sure you want to delete this subject?</p>
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="SubjectKey" />
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </form>
+}

@@ -1,0 +1,41 @@
+@model IEnumerable<StudentGrades.Models.Student>
+@{ ViewData["Title"] = "Students"; }
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="mb-0">Students (mst_student)</h2>
+    <a asp-action="Create" class="btn btn-primary">+ Add Student Grade</a>
+</div>
+
+<table class="table table-striped table-bordered align-middle">
+    <thead class="table-dark">
+        <tr>
+            <th>Student Key</th>
+            <th>Student Name</th>
+            <th>Subject</th>
+            <th class="text-end">Grade</th>
+            <th class="text-center">Remarks</th>
+            <th style="width:160px">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (!Model.Any())
+        {
+            <tr><td colspan="6" class="text-center text-muted">No students yet.</td></tr>
+        }
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.StudentKey</td>
+                <td>@item.StudentName</td>
+                @* <td>@item.SubjectKey - @item.Subject?.SubjectName</td> *@
+                <td>@item.Subject?.SubjectName</td>
+                <td class="text-end">@item.Grade?.ToString("0.##")</td>
+                <td class="text-center"><partial name="_RemarksBadge" model="item.Remarks" /></td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.StudentKey" class="btn btn-sm btn-outline-primary">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@item.StudentKey" class="btn btn-sm btn-outline-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

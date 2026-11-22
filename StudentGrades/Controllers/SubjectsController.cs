@@ -10,17 +10,14 @@ public class SubjectsController : Controller
     private readonly AppDbContext _db;
     public SubjectsController(AppDbContext db) => _db = db;
 
-    // GET: /Subjects
     public async Task<IActionResult> Index()
     {
         var subjects = await _db.Subjects.OrderBy(s => s.SubjectName).ToListAsync();
         return View(subjects);
     }
 
-    // GET: /Subjects/Create
     public IActionResult Create() => View();
 
-    // POST: /Subjects/Create
     [HttpPost, ValidateAntiForgeryToken]
     public async Task<IActionResult> Create([Bind("SubjectName")] Subject subject)
     {
@@ -33,14 +30,12 @@ public class SubjectsController : Controller
         return RedirectToAction(nameof(Index));
     }
 
-    // GET: /Subjects/Edit/5
     public async Task<IActionResult> Edit(int id)
     {
         var subject = await _db.Subjects.FindAsync(id);
         return subject == null ? NotFound() : View(subject);
     }
 
-    // POST: /Subjects/Edit/5
     [HttpPost, ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit(int id, [Bind("SubjectKey,SubjectName")] Subject subject)
     {
@@ -57,7 +52,6 @@ public class SubjectsController : Controller
         return RedirectToAction(nameof(Index));
     }
 
-    // GET: /Subjects/Delete/5
     public async Task<IActionResult> Delete(int id)
     {
         var subject = await _db.Subjects.FindAsync(id);
@@ -66,7 +60,6 @@ public class SubjectsController : Controller
         return View(subject);
     }
 
-    // POST: /Subjects/Delete/5
     [HttpPost, ActionName("Delete"), ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {

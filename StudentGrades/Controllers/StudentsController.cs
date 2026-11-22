@@ -11,7 +11,6 @@ public class StudentsController : Controller
     private readonly AppDbContext _db;
     public StudentsController(AppDbContext db) => _db = db;
 
-    // GET: /Students
     public async Task<IActionResult> Index()
     {
         var students = await _db.Students
@@ -21,15 +20,12 @@ public class StudentsController : Controller
         return View(students);
     }
 
-    // GET: /Students/Create
     public async Task<IActionResult> Create()
     {
         await LoadSubjects();
         return View(new Student());
     }
 
-    // POST: /Students/Create
-    // Remarks is deliberately NOT in the Bind list: it is calculated by the database.
     [HttpPost, ValidateAntiForgeryToken]
     public async Task<IActionResult> Create([Bind("StudentName,SubjectKey,Grade")] Student student)
     {
@@ -41,12 +37,11 @@ public class StudentsController : Controller
 
         student.StudentName = student.StudentName.Trim();
         _db.Students.Add(student);
-        await _db.SaveChangesAsync();   // EF reads the generated Remarks value back after insert
+        await _db.SaveChangesAsync(); 
         TempData["Message"] = $"Grade for {student.StudentName} saved ({student.Remarks}).";
         return RedirectToAction(nameof(Index));
     }
 
-    // GET: /Students/Edit/5
     public async Task<IActionResult> Edit(int id)
     {
         var student = await _db.Students.FindAsync(id);
@@ -55,7 +50,6 @@ public class StudentsController : Controller
         return View(student);
     }
 
-    // POST: /Students/Edit/5
     [HttpPost, ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit(int id, [Bind("StudentKey,StudentName,SubjectKey,Grade")] Student student)
     {
@@ -77,14 +71,12 @@ public class StudentsController : Controller
         return RedirectToAction(nameof(Index));
     }
 
-    // GET: /Students/Delete/5
     public async Task<IActionResult> Delete(int id)
     {
         var student = await _db.Students.Include(s => s.Subject).FirstOrDefaultAsync(s => s.StudentKey == id);
         return student == null ? NotFound() : View(student);
     }
 
-    // POST: /Students/Delete/5
     [HttpPost, ActionName("Delete"), ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {

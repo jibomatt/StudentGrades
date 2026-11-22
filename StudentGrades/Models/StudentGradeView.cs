@@ -2,7 +2,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace StudentGrades.Models;
 
-// Maps to the database view: vw_student_grades (read-only, no key)
 public class StudentGradeView
 {
     public int StudentKey { get; set; }

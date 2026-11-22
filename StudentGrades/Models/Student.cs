@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace StudentGrades.Models;
 
-// Table: mst_student
 public class Student
 {
     [Key]
@@ -25,8 +24,6 @@ public class Student
     [Display(Name = "Grade")]
     public decimal? Grade { get; set; }
 
-    // Computed by PostgreSQL (generated column): grade >= 75 -> PASS, else FAIL.
-    // [BindNever] stops the user from posting a value for it.
     [BindNever]
     [Display(Name = "Remarks")]
     public string? Remarks { get; set; }

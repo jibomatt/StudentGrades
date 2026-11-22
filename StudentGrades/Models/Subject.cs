@@ -2,7 +2,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace StudentGrades.Models;
 
-// Table: mst_subject
 public class Subject
 {
     [Key]
